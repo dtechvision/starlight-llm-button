@@ -1,0 +1,47 @@
+---
+import config from 'virtual:starlight-llm-button-config';
+import { getEntry } from 'astro:content';
+
+const {
+  contentCollection = 'docs',
+  customText = {},
+  styleOverride,
+} = config;
+
+const slug = Astro.url.pathname.replace(/^\//, '').replace(/\/$/, '') || 'index';
+const entry = await getEntry({ collection: contentCollection, slug });
+const markdown = entry ? entry.body : '';
+const t = Astro.locals.t;
+const copyText = customText.copy || t('llmButton.copy');
+// @ts-ignore -- we are using it in the script below
+const copiedText = customText.copied || t('llmButton.copied');
+// @ts-ignore -- we are using it in the script below
+const errorText = customText.error || t('llmButton.error');
+const buttonStyle = styleOverride || "margin: 1em 0; padding: 0.5em 1em; border-radius: 8px; border: 1px solid; cursor: pointer;";
+---
+
+<button
+  id="llm-copy-markdown-btn"
+  type="button"
+  data-markdown={markdown.replace(/`/g, '\`').replace(/\$/g, '\$')}
+  style={buttonStyle}
+>
+  {copyText}
+</button>
+<script type="module">
+  const btn = document.getElementById('llm-copy-markdown-btn');
+  const defaultText = btn?.textContent;
+  btn?.addEventListener('click', async () => {
+    try {
+      const markdown = btn.getAttribute('data-markdown');
+      await navigator.clipboard.writeText(markdown);
+      btn.textContent = btn.getAttribute('data-copied') || 'Copied!';
+      setTimeout(() => (btn.textContent = defaultText), 1500);
+    } catch (e) {
+      alert(btn.getAttribute('data-error') || 'Failed to copy.');
+    }
+  });
+  // Set translated attributes for JS
+  btn?.setAttribute('data-copied', copiedText || 'Copied!');
+  btn?.setAttribute('data-error', errorText || 'Failed to copy.');
+</script>

@@ -1,0 +1,32 @@
+---
+title: Configuration
+description: An overview of all the configuration options supported by the Starlight LLM Button plugin.
+---
+
+The Starlight LLM Button plugin can be configured inside the `astro.config.mjs` configuration file of your project:
+
+```js {11}
+// astro.config.mjs
+import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
+import starlightLLMButton from "starlight-llm-button";
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      plugins: [
+        starlightLLMButton({
+          // Configuration options go here.
+        }),
+      ],
+      title: "My Docs",
+    }),
+  ],
+});
+```
+
+## Configuration options
+
+The Starlight LLM Button plugin accepts the following configuration options:
+
+None: Please PR if you need more options.

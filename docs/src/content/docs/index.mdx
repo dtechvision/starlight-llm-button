@@ -1,0 +1,38 @@
+---
+title: Starlight LLM Button
+description: Add a LLM Button to your Starlight or Astro project allowing anyone to copy the markdown of any page to paste into a LLM.
+head:
+  - tag: title
+    content: Starlight LLM Button
+template: splash
+editUrl: false
+hero:
+  tagline: Add a LLM Button to your Starlight or Astro project allowing anyone to copy the markdown of any page to paste into a LLM.
+  image:
+    dark: ../../assets/big-logo-dark.png
+    light: ../../assets/big-logo-light.png
+  actions:
+    - text: Get Started
+      link: /getting-started/
+      icon: right-arrow
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+
+## Next steps
+
+<CardGrid stagger>
+  <Card title="Install the plugin" icon="puzzle">
+    Check the [getting started guide](/getting-started/) for installation
+    instructions.
+  </Card>
+  <Card title="Configure the plugin" icon="setting">
+    Edit your config in the `astro.config.mjs` file.
+  </Card>
+</CardGrid>
+
+## Contributors
+
+import { ContributorList } from "starlight-contributor-list";
+
+<ContributorList githubRepo="dtechvision/starlight-llm-button" ignore={["autofix-ci[bot]", "github-actions[bot]", "renovate[bot]"]} />
