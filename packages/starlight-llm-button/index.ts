@@ -14,6 +14,8 @@ export interface StarlightLLMButtonOptions {
     error?: string;
   };
   styleOverride?: string; // if set, use this CSS string for the button style
+  preCopyPrompt?: string; // Master prompt added before copied content
+  postCopyPrompt?: string; // Master prompt added after copied content
 }
 
 export default function starlightLLMButtonPlugin(options: StarlightLLMButtonOptions = {}): StarlightPlugin {
@@ -21,6 +23,8 @@ export default function starlightLLMButtonPlugin(options: StarlightLLMButtonOpti
     contentCollection = 'docs',
     customText = {},
     styleOverride,
+    preCopyPrompt,
+    postCopyPrompt,
   } = options;
 
   return {
@@ -39,6 +43,8 @@ export default function starlightLLMButtonPlugin(options: StarlightLLMButtonOpti
           contentCollection,
           customText,
           ...(styleOverride !== undefined && { styleOverride }),
+          ...(preCopyPrompt !== undefined && { preCopyPrompt }),
+          ...(postCopyPrompt !== undefined && { postCopyPrompt }),
         };
 
         addIntegration({

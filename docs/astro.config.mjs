@@ -28,9 +28,22 @@ export default defineConfig({
       ],
       sidebar: [
         {
+          label: 'Start Here',
+          items: [
+            { label: 'Overview', link: '/' },
+            { label: 'Getting Started', link: '/getting-started/' },
+          ]
+        },
+        {
+          label: 'Configuration',
+          items: [
+            { label: 'Plugin Options', link: '/configuration/' },
+            { label: 'Prompt Overrides Example', link: '/prompt-overrides/' },
+          ]
+        },
+        {
           label: 'Guides',
           items: [
-            { label: 'Example Guide', link: '/guides/example/' },
             { label: 'Composability Guide', link: '/guides/composability/' },
           ],
         },

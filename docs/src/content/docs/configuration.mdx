@@ -5,7 +5,12 @@ description: An overview of all the configuration options supported by the Starl
 
 The Starlight LLM Button plugin can be configured inside the `astro.config.mjs` configuration file of your project:
 
-```js {11}
+```js {11-16} ins="{
+          contentCollection: 'notes',
+          customText: { copy: 'Copy Markdown for LLM' },
+          preCopyPrompt: 'Use the following markdown:',
+          postCopyPrompt: '\n\nProvide a summary.'
+        }"
 // astro.config.mjs
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
@@ -16,7 +21,12 @@ export default defineConfig({
     starlight({
       plugins: [
         starlightLLMButton({
-          // Configuration options go here.
+          // Example configuration options:
+          contentCollection: 'notes',
+          customText: { copy: 'Copy Markdown for LLM' },
+          preCopyPrompt: 'Use the following markdown:\n\n',
+          postCopyPrompt: '\n\nProvide a summary.',
+          // styleOverride: "font-weight: bold; color: blue;"
         }),
       ],
       title: "My Docs",
@@ -27,6 +37,51 @@ export default defineConfig({
 
 ## Configuration options
 
-The Starlight LLM Button plugin accepts the following configuration options:
+The Starlight LLM Button plugin accepts the following configuration options object:
 
-None: Please PR if you need more options.
+### `contentCollection`
+
+-   **Type:** `string`
+-   **Default:** `'docs'`
+
+Specifies the Astro content collection where your documentation files are located. Change this if your collection is named differently (e.g., `'notes'`, `'blog'`).
+
+### `customText`
+
+-   **Type:** `object`
+-   **Default:** `{}` (Uses default translations for 'Copy', 'Copied!', 'Error')
+
+Allows overriding the default button text and messages.
+
+```ts
+customText: {
+  copy?: string;    // Text for the button in its default state.
+  copied?: string;  // Text shown temporarily after successful copy.
+  error?: string;   // Alert message shown if copying fails.
+}
+```
+
+### `styleOverride`
+
+-   **Type:** `string`
+-   **Default:** `undefined` (Uses default button styles)
+
+Provide a CSS string to completely replace the default button styling.
+
+```js
+styleOverride: "margin: 1em 0; padding: 0.5em 1em; border-radius: 4px; background-color: rebeccapurple; color: white; border: none; cursor: pointer;"
+```
+
+### `preCopyPrompt`
+
+-   **Type:** `string`
+-   **Default:** `''`
+
+Optional text added *before* the page's Markdown content when the copy button is clicked. Useful for providing context or instructions to an LLM.
+
+### `postCopyPrompt`
+
+-   **Type:** `string`
+-   **Default:** `''`
+
+Optional text added *after* the page's Markdown content when the copy button is clicked. Useful for adding follow-up instructions or questions for an LLM.

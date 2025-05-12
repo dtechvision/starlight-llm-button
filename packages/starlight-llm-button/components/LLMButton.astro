@@ -6,6 +6,8 @@ const {
   contentCollection = 'docs',
   customText = {},
   styleOverride,
+  preCopyPrompt: globalPrePrompt = '',
+  postCopyPrompt: globalPostPrompt = '',
 } = config;
 
 const slug = Astro.url.pathname.replace(/^\//, '').replace(/\/$/, '') || 'index';
@@ -18,12 +20,18 @@ const copiedText = customText.copied || t('llmButton.copied');
 // @ts-ignore -- we are using it in the script below
 const errorText = customText.error || t('llmButton.error');
 const buttonStyle = styleOverride || "margin: 1em 0; padding: 0.5em 1em; border-radius: 8px; border: 1px solid; cursor: pointer;";
+
+// Determine final prompts: prioritize frontmatter over global config
+const prePrompt = entry?.data?.preCopyPrompt ?? globalPrePrompt;
+const postPrompt = entry?.data?.postCopyPrompt ?? globalPostPrompt;
 ---
 
 <button
   id="llm-copy-markdown-btn"
   type="button"
   data-markdown={markdown.replace(/`/g, '\`').replace(/\$/g, '\$')}
+  data-pre-prompt={prePrompt}
+  data-post-prompt={postPrompt}
   style={buttonStyle}
 >
   {copyText}
@@ -34,7 +42,10 @@ const buttonStyle = styleOverride || "margin: 1em 0; padding: 0.5em 1em; border-
   btn?.addEventListener('click', async () => {
     try {
       const markdown = btn.getAttribute('data-markdown');
-      await navigator.clipboard.writeText(markdown);
+      const prePrompt = btn.getAttribute('data-pre-prompt') || ''; // Get pre-prompt
+      const postPrompt = btn.getAttribute('data-post-prompt') || ''; // Get post-prompt
+      const textToCopy = `${prePrompt}${markdown}${postPrompt}`; // Combine prompts and markdown
+      await navigator.clipboard.writeText(textToCopy); // Copy combined text
       btn.textContent = btn.getAttribute('data-copied') || 'Copied!';
       setTimeout(() => (btn.textContent = defaultText), 1500);
     } catch (e) {
