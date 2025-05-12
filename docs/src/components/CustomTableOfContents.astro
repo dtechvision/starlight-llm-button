@@ -1,0 +1,17 @@
+---
+// src/components/CustomTableOfContents.astro
+import DefaultTableOfContents from '@astrojs/starlight/components/TableOfContents.astro';
+import LLMButton from 'starlight-llm-button/components/LLMButton.astro';
+import DefaultBottomTableOfContentsWrapper from 'starlight-cooler-credit/components/DefaultBottomTableOfContentsWrapper.astro';
+---
+
+<!-- Render the LLM Button at the top -->
+<LLMButton />
+
+<!-- Render the default Starlight Table of Contents -->
+<DefaultTableOfContents>
+  <slot />
+</DefaultTableOfContents>
+
+<!-- Render the Cooler Credit card at the bottom -->
+<DefaultBottomTableOfContentsWrapper /> 

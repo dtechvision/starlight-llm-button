@@ -44,12 +44,28 @@ importers:
       starlight-contributor-list:
         specifier: ^0.3.0
         version: 0.3.0(@astrojs/starlight@0.33.0(astro@5.6.1(jiti@2.4.2)(rollup@4.37.0)(typescript@5.6.3)))
+      starlight-cooler-credit:
+        specifier: ^0.4.0
+        version: 0.4.0(@astrojs/starlight@0.33.0(astro@5.6.1(jiti@2.4.2)(rollup@4.37.0)(typescript@5.6.3)))
       starlight-links-validator:
         specifier: ^0.14.3
         version: 0.14.3(@astrojs/starlight@0.33.0(astro@5.6.1(jiti@2.4.2)(rollup@4.37.0)(typescript@5.6.3)))
       starlight-llm-button:
         specifier: workspace:*
         version: link:../packages/starlight-llm-button
+
+  packages/starlight-cooler-credit:
+    dependencies:
+      change-case:
+        specifier: ^5.4.4
+        version: 5.4.4
+    devDependencies:
+      '@astrojs/starlight':
+        specifier: ^0.33.0
+        version: 0.33.0(astro@5.6.1(jiti@2.4.2)(rollup@4.37.0)(typescript@5.6.3))
+      astro:
+        specifier: ^5.6.1
+        version: 5.6.1(jiti@2.4.2)(rollup@4.37.0)(typescript@5.6.3)
 
   packages/starlight-llm-button:
     dependencies:
@@ -2077,6 +2093,12 @@ packages:
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
     peerDependencies:
       '@astrojs/starlight': '>=0.30'
+
+  starlight-cooler-credit@0.4.0:
+    resolution: {integrity: sha512-f2BYcZ9NpBcykzJWpC6/aTXDM6X0ztz25ZBexGhU1hI8R1HvlDJwpYPw4bKQUSaI1+pWyaarbehodouh9B7ekw==}
+    engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.32'
 
   starlight-links-validator@0.14.3:
     resolution: {integrity: sha512-2CvQs0ZdIVExrEQ1bn0r2aFx4n+VSOb6vDWK+gTNb5N1c+nXJ7VjUbEsQhj+9Lb7XgY6Nxqz9JXUM9364hJ3ZA==}
@@ -5145,6 +5167,11 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  starlight-cooler-credit@0.4.0(@astrojs/starlight@0.33.0(astro@5.6.1(jiti@2.4.2)(rollup@4.37.0)(typescript@5.6.3))):
+    dependencies:
+      '@astrojs/starlight': 0.33.0(astro@5.6.1(jiti@2.4.2)(rollup@4.37.0)(typescript@5.6.3))
+      change-case: 5.4.4
 
   starlight-links-validator@0.14.3(@astrojs/starlight@0.33.0(astro@5.6.1(jiti@2.4.2)(rollup@4.37.0)(typescript@5.6.3))):
     dependencies:

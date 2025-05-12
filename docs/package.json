@@ -1,6 +1,6 @@
 {
   "name": "starlight-llm-button-docs",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Add a copy to llm button to Starlight or Astro at the top of Table of Contents.",
   "keywords": [
     "starlight",
@@ -34,6 +34,7 @@
     "astro": "^5.6.1",
     "sharp": "^0.33.5",
     "starlight-contributor-list": "^0.3.0",
+    "starlight-cooler-credit": "^0.4.0",
     "starlight-llm-button": "workspace:*",
     "starlight-links-validator": "^0.14.3"
   },
