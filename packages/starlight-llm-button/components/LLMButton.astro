@@ -11,7 +11,7 @@ const {
 } = config;
 
 const id = Astro.locals.starlightRoute.id;
-const entry = await getEntry({ collection: contentCollection, id });
+const entry = await getEntry({ collection: contentCollection, slug: id });
 const markdown = entry ? entry.body : '';
 const t = Astro.locals.t;
 const copyText = customText.copy || t('llmButton.copy');

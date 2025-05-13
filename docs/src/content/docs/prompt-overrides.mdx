@@ -1,0 +1,27 @@
+---
+title: Per-Page Prompt Overrides
+description: Learn how to override the global copy prompts on specific pages.
+preCopyPrompt: "Summarize the following content specific to this override page:\n\n"
+postCopyPrompt: "\n\nWhat is the main topic discussed here?"
+---
+
+This page demonstrates how to set custom `preCopyPrompt` and `postCopyPrompt` values directly in the frontmatter, overriding any global settings from your `astro.config.mjs` for this page only.
+
+Check the frontmatter of this file (`src/content/docs/prompt-overrides.mdx`) to see the specific prompts defined:
+
+```md title="src/content/docs/prompt-overrides.mdx" {4-5}
+---
+title: Per-Page Prompt Overrides
+description: Learn how to override the global copy prompts on specific pages.
+preCopyPrompt: "Summarize the following content specific to this override page:\n\n"
+postCopyPrompt: "\n\nWhat is the main topic discussed here?"
+---
+
+Page content...
+```
+
+When you click the copy button below (added by the Starlight LLM Button plugin), the text copied to your clipboard will include the `preCopyPrompt` and `postCopyPrompt` defined above, rather than any global prompts.
+
+## Sample Content for Copying
+
+Here is some example content on this page. Try clicking the copy button to see how the prompts defined in this page's frontmatter are added before and after this text. This allows for highly specific instructions to be sent to an LLM based on the content of individual pages. 

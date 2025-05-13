@@ -85,3 +85,52 @@ Optional text added *before* the page's Markdown content when the copy button is
 -   **Default:** `''`
 
 Optional text added *after* the page's Markdown content when the copy button is clicked. Useful for adding follow-up instructions or questions for an LLM.
+
+### Per-Page Prompt Overrides
+
+You can override the global `preCopyPrompt` and `postCopyPrompt` settings on individual pages by adding them to the page's frontmatter:
+
+```md title="src/content/docs/example.md"
+---
+title: Example Page
+description: This page uses custom prompts.
+preCopyPrompt: "Analyze this specific section:\n\n"
+postCopyPrompt: "\n\nWhat are the key takeaways?"
+---
+
+Page content...
+
+```
+
+If a prompt is defined in the frontmatter, it will be used instead of the global one configured in `astro.config.mjs`. If neither is set, no prompt text will be added.
+
+### Extending Your Content Collection Schema
+
+For Astro to recognize and make your custom frontmatter fields like `preCopyPrompt` and `postCopyPrompt` available in `entry.data`, you need to define them in your project's content collection schema.
+
+If you are using the default `docs` collection with Starlight, you would typically create or update the `src/content/config.ts` (or `.js`/`.mjs`) file in your documentation project (e.g., in your `docs/` directory if you have a monorepo setup, or the root `src/` if it's a single project).
+
+Here's an example of how to extend the `docsSchema` to include these fields:
+
+```typescript title="src/content/config.ts"
+import { defineCollection, z } from 'astro:content';
+import { docsSchema } from '@astrojs/starlight/schema'; // If using Starlight's default schema
+// Or import { docsLoader } from '@astrojs/starlight/loaders'; if you use a loader and extend its schema
+
+export const collections = {
+  docs: defineCollection({
+    // If you use a loader like docsLoader():
+    // loader: docsLoader(), // Example if using Starlight's docsLoader
+    schema: docsSchema({ // Or directly z.object({}) if not using a base Starlight schema
+      extend: z.object({
+        preCopyPrompt: z.string().optional(),
+        postCopyPrompt: z.string().optional(),
+        // Add any other custom frontmatter fields you need here
+      }),
+    }),
+  }),
+  // other collections...
+};
+```
+
+**Important:** After creating or modifying this configuration file, you **must restart your Astro development server**. This allows Astro to regenerate types and recognize the new schema fields.
