@@ -10,8 +10,8 @@ const {
   postCopyPrompt: globalPostPrompt = '',
 } = config;
 
-const slug = Astro.url.pathname.replace(/^\//, '').replace(/\/$/, '') || 'index';
-const entry = await getEntry({ collection: contentCollection, slug });
+const id = Astro.locals.starlightRoute.id;
+const entry = await getEntry({ collection: contentCollection, id });
 const markdown = entry ? entry.body : '';
 const t = Astro.locals.t;
 const copyText = customText.copy || t('llmButton.copy');
